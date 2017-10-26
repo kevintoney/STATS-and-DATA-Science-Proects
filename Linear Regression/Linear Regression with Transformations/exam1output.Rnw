@@ -1,0 +1,286 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{subfig}
+\graphicspath{ {C:/Users/kevin/Desktop/Fall 2017/STAT 330/Homework}}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\begin{document}
+\title{Midterm Analysis 1: Pollution}
+\maketitle
+
+\section{Introduction and Problem Background}
+
+Particulate matter, also known as particle pollution causes a myraid of health problems for humans. These problems are caused by the components in each particle such as acids, metals, soil or dust. The health problems caused by long-term exposure include chornic bronchitis and premature death. Short-term exposure can lead to asthma attacks, acute bronchitis and heart arrhythmia. 
+
+Since long-term and short-term particle pollution (PM) exposure has been linked to health problems, the goal of this analysis is to analyze the given data and determine the relationship between the amount of PM particles (in parts per million) and the amount of cars passing through an intersection during a given day. Another purpose is to predict the PM levels due to a given number of cars on a day. 
+
+The data is the PM levels in the air as the response variable, and the amount of cars as the explanatory variable. Consider the scatter plot of the data below:\newline
+\includegraphics{dataplot.png}
+<<problem1, out.width='100%', include=FALSE>>=
+rm(list=ls())
+library(MASS)
+library(lmtest)
+
+#####################
+#Exam 1
+#####################
+pm.dat <- read.table("C:/Users/kevin/Desktop/Fall 2017/STAT 330/Exam 1/PM.txt", header = T, sep="")
+
+scatter.smooth(pm.dat$Cars, pm.dat$Particles, lpars = list(col="red"), xlab="Number of Cars in One Day", ylab="PM Levels", main="Particle Matter (PM) due to Amount of Cars")
+
+cov(pm.dat$Cars, pm.dat$Particles)
+#covariance shows the relationship is positive between the two factors.
+cor(pm.dat$Cars, pm.dat$Particles)
+#correlation shows the linear relationship is positive between the two factors. The relationship is weak. Therefore, other factors are involved in the PM levels. 
+@
+
+The scatter plot shows that the data follows a linear relationship. Also, the relationship between the number of cars and PM levels seems to be positive. We found the covariance between the two variables. The covariance was positive, which confirmed our observations. Also, the correlation is positive. Yes, the linear relationship is weak because the correlation is r=0.30, but the relationship exists and it is indeed positive.
+
+
+Since the linear relationship exists, a form of linear regression will help answer our questions. To see if simple linear regression is an appropriate statistical method for this analysis, consider the two plots below. 
+
+\includegraphics[scale=0.8]{falseresidsvsfitted.png}
+\includegraphics[scale=0.8]{falsehistogram.png}
+
+
+A simple linear regression model, without any transformations, will not be appropriate for this analysis. Even though the relationship between PM concentration and number of cars passing through the intersection is linear, the data didn't fulfill three other requirements or assumptions we needed to make in order to use simple linear regression. The PM levels needed to be independent of each other, the residuals of the PM levels needed to follow a normal distribution, and the variances of the PM levels needed to be equal distances from the mean throughout the data. In order to meet these assumptions, we took the natural log of the PM levels, but kept the number of cars the same way they originally appeared. 
+
+<<analysis, include=FALSE>>=
+linear_model <- lm(pm.dat$Particles ~ pm.dat$Cars, data=pm.dat)
+summary(linear_model)
+
+#try sqrt transformation on response. 
+
+scatter.smooth(pm.dat$Cars, pm.dat$Particles, lpars=list(col="red"))
+cor(pm.dat$Cars, pm.dat$Particles)
+st.resids <- stdres(linear_model)
+plot(pm.dat$Cars, st.resids, xlab = "Fitted Values", ylab = "Residuals",
+     main = "Residuals vs. Fitted Values Plot")
+abline(0,0, col="red")
+hist(st.resids, main='Histogram of Standardized Residuals', 
+     xlab="Standardized Residuals")
+ks.test(st.resids, "pnorm")
+bptest(linear_model)
+
+
+linear_model2 <- lm(sqrt(pm.dat$Particles) ~ pm.dat$Cars, data=pm.dat)
+summary(linear_model2)
+
+st.resids <- stdres(linear_model2)
+
+plot(pm.dat$Cars, st.resids)
+abline(0,0, col="red")
+ks.test(st.resids, "pnorm")
+hist(st.resids)
+
+bptest(linear_model2)
+
+#still no assumptions seem to be met. 
+
+#How can I decrease the range of values of y?
+#consider this
+
+scatter.smooth(sqrt(pm.dat$Cars), sqrt(pm.dat$Particles), lpars=list(col="red"))
+cor(sqrt(pm.dat$Cars), sqrt(pm.dat$Particles))
+linear_model3 <- lm(sqrt(pm.dat$Particles) ~ sqrt(pm.dat$Cars), data=pm.dat)
+summary(linear_model3)
+
+st.resids <- stdres(linear_model3)
+
+plot(pm.dat$Cars, st.resids)
+abline(0,0, col="red")
+ks.test(st.resids, "pnorm")
+hist(st.resids)
+
+bptest(linear_model3)
+
+
+#or
+scatter.smooth(log(pm.dat$Cars), log(pm.dat$Particles), lpars=list(col="red"))
+cor(log(pm.dat$Cars), log(pm.dat$Particles))
+
+log_linear_model <- lm(log(pm.dat$Particles) ~ log(pm.dat$Cars), data = pm.dat)
+summary(log_linear_model)
+
+st.resids <- stdres(log_linear_model)
+
+plot(pm.dat$Cars, st.resids)
+abline(0,0, col="red")
+ks.test(st.resids, "pnorm")
+hist(st.resids)
+#the standardized residuals seem skewed to the left. 
+
+bptest(log_linear_model)
+
+##I think log regression when transforming both variables passes all of the L-I-N-E assumptions. Natural Logging both variables may be easier to get predictions from. 
+@
+
+
+\section{Statistical Modeling}
+
+
+A justifiable simple linear regression design is log linear regression. The mathematical form of this model is the following:
+$ln(y_i) \sim N(\beta_0 + \beta_1*x_i, \sigma^2)$
+
+$ln(y_i$) = The natural log of ith PM measurement, in parts per million, on a given day. 
+
+$N$ = The normal distribution, which has a mean, and a variance.
+
+$\beta_0$ = The natural log of average PM level if the number of cars by the intersection is 0 on a given day.
+
+$\beta_1$ = The natural log of the amount the average PM level increases if the number of cars by the intersection increases by 1 car.
+
+$x_i$ = The ith measurement of cars passing through the intersection. 
+
+<<best model, include=FALSE>>=
+
+######This test is the best test. 
+scatter.smooth(pm.dat$Cars, log(pm.dat$Particles), lpars=list(col="red"), xlab = "Number of Cars", ylab = "ln(PM LevelsL)", main="Natural Log of PM Levels due to Number of Cars")
+cor(pm.dat$Cars, log(pm.dat$Particles))
+#The scatter plot shows a linear relationship. 
+
+log1_linear_model <- lm(log(Particles) ~ Cars, data = pm.dat)
+summary(log1_linear_model)
+
+st.resids <- stdres(log1_linear_model)
+
+plot(pm.dat$Cars, st.resids, xlab = "Fitted Values", ylab = "Standardized Residuals", main = "Residuals Vs. Fitted Values Plot")
+abline(0,0, col="red")
+#The residuals vs. fitted values plot seems to not have a pattern. Therefore, I suspected the PM level measurements are independent from each other. Additionally, the PM levels from one day will not affect the levels of the next day as much as other explanatory variables would. I concluded the PM amounts are independent from each other day to day. 
+
+ks.test(st.resids, "pnorm")
+#The KS test supports our conclusion. The test returned a p-value of 0.5229, which is much greater than the level of signifcance, which is 0.05. We cannot conclude PM levels are dependent on each other. 
+
+hist(st.resids, xlab = "Standardized Residuals")
+#The residuals seem to follow a normal distribution, according to their histogram. 
+
+bptest(log1_linear_model)
+#According to the BP Test, we cannot prove the variances all across the least squares regression line are unequal. The assumption of equal variance holds. 
+
+@
+
+
+In order to appropriately perform log linear regression, we made four assumptions. First, we assumed the relationship between PM levels and the number of cars is linear. Second, we assumed the PM levels each day are independent of the measurements on other days. Thirdly, we assumed the residuals from the mean follow a normal distribution. Finally, there is equal variance throughout the data. 
+
+
+%%%%%Section 3
+\section{Model Verification}
+
+
+Consider the three plots below: \newline
+
+\includegraphics{scatterplot.png}
+
+\includegraphics[scale=0.8]{residsvsfitted.png}
+\includegraphics[scale=0.8]{histogramstresids.png}
+
+The scatter plot of the data shows that the natural log of the PM levels has a linear relationship with the number of cars. That assumption is met. The histogram of standardized residuals shows a normal distribution. I ran another test to confirm this assumption. The test is called the KS test. The KS test gave me a p-value of 0.5229. When we compare that p-value to an alpha value of 0.05, we conclude the standardized residuals and residuals follow a normal distribution. 
+
+The residuals vs. fitted values plot shows no noticeable pattern, such as a wave or clump. Therefore, the plot supports the idea PM levels are independent of each other. Intuition agrees that the PM levels are independent of each other. A measurement of PM from one day doesn't affect the measurement of the next day as significantly as climate or the amount of cars does. Finally, the residuals vs. fitted values plot shows a constant variance thoughout the data, because there is no  funnel shape. Also, the BP Test gave a p-vaule over 0.05. Therefore, the PM levels have a constant enough variance throughout the data.
+
+
+
+Even though the log linear regression model fulfills our assumptions, the model does not fit the data well. Because the correlation of the log data is only 0.36, the $R^2$ score is 0.1296. Therefore, only 12.96 percent of the log(PM) variation is explained the variation in the number of cars. 
+
+<<cross validation, include=FALSE>>=
+
+n.cv <- 250
+bias <- rep(NA, n.cv)
+rpmse <- rep(NA, n.cv)
+pred.int.width <- rep(NA, n.cv)
+coverage <- rep(NA, n.cv)
+#create two NULL vectors
+
+for(i in 1:n.cv) {
+  ## Step 1: split data into test and training sets
+  adv.test <- sample(1:nrow(pm.dat), 5)
+  test.data <- pm.dat[adv.test,]
+  train.data <- pm.dat[-adv.test,]
+  
+  ## Step 2: Fit model to training data
+  my.model <- lm(log(Particles) ~ Cars, data = train.data)
+  #if I am using a predict.lm statement, I need to fit the model
+  #using the column names of the data frame, not variables
+  #I created before. 
+  ## Step 3: predict for test data
+  test.preds <- exp(predict.lm(my.model, newdata = test.data))
+  ## Step 4: calculate the bias and RPMSE
+  bias[i] <- mean((test.preds - test.data$Particles))
+  rpmse[i] <- sqrt(mean((test.preds - test.data$Particles)^2))
+  
+  pred.int <- exp(predict.lm(my.model, newdata= test.data, interval = "prediction", level=0.95))
+  #do my prediction intervals contain the five data points from the test data
+  coverage[i] <- pred.int[,2] < test.data$Particles & test.data$Particles < pred.int[,3]
+  pred.int.width[i] <- mean(pred.int[,3] - pred.int[,2])
+  #get the average of the differences between the upper and the lower
+  #that number equals the prediction interval width. 
+}
+
+#Are we overpredicting or underpredicting values compared to the mean line?
+mean(bias)
+#We are underpredicting the values. The mean predictive bias is negative. 
+
+mean(rpmse)
+#On average, the predictions are 8,833.5 acre feet away from the mean stream runoff values.
+#When we compare these differences to the range of the stream runoff values,
+#this predictive differences aren't signifcant to lessen our confidence in our prediction model.
+
+#On average, 88 percent of the prediction intervals contain 
+#the actual stream runoff values. 
+mean(coverage)
+
+#On average, our prediction intervals have a range of 37,201.25 acre feet. 
+mean(pred.int.width)
+
+@
+
+
+On average, our model underpredicts PM values by 10.63746 parts per million. In other words, our model predicts PM levels that are under the least squares regression line. Moreover, our predictions for the particle levels are 30.38 parts per million away from the least squares regression line. I validated our model with 250 cross validations. In other words, I subsetted the data into a training set and a test dataset 250 times. Each time, I fit our regression model onto the training data set. Then I calculated prediction intervals of the test data based on the regression line fitted on the training data. These prediction intervals are the range of values our predictions may be in, with 95 percent confidence. I found that 93 percent of the 250 prediction intervals contained the observed values of PM concentration. Finally, our average prediction interval width, after the cross validations, was 134.3 parts per million. This prediction interval width is very large the data's range. The PM level's range 218. The prediction interval width is more than half of the range. Therefore, our model's prediction has a wide range of possibilities. 
+
+
+%%%%%%Section 4
+\section{Results}
+
+
+According to our fitted regression model, there is a significant relationship between the PM concentration and the number of cars passing through the area. The p-value for $\hat\beta_1$ is 0.000032, which is less than 0.05. We are 95 percent sure that the average relationship between the two variables is in the range of 0.000213 and 0.00034. As you can see, log linear regression answered your question regarding the relationship between PM levels and the number of cars passing through an intersection. The least squares regression line is drawn on the scatter plot of the data in its original scale. 
+
+\includegraphics{regression_line.png}
+<<confid.interval, include=FALSE>>=
+
+confint(log1_linear_model)
+
+#can you predict a parameter of a 
+#log linear regression model?
+exp(predict.lm(log1_linear_model, newdata=data.frame(Cars=1800, Particles=1), interval = "prediction"))
+
+plot(pm.dat$Cars, pm.dat$Particles, xlab="Number of Cars in One Day", ylab="PM Levels", main="Particle Matter (PM) due to Amount of Cars")
+ticks <- seq(0, 4300, length=4300)
+log.pred <- exp(predict.lm(log1_linear_model, newdata = data.frame(Cars= ticks, Particles=1)))
+plot(pm.dat$Cars, pm.dat$Particles, xlab="Number of Cars in One Day", ylab="PM Levels", main="Particle Matter (PM) due to Amount of Cars")
+lines(ticks, log.pred, col="red")
+@
+
+
+Now, we will answer your question regarding how this model will predict PM levels. If the number of cars passing through an intersection is 1,800 on a given day, the model predicts the PM levels in the area on a single day would be between 5.336 and 138.662, on average, with 95 percent confidence. This interval is the prediction interval. The point estimate in this interval is a PM level of 27.20. 
+
+
+
+%%%%%Section 5
+\section{Conclusions}
+
+I analyzed the data of PM levels due to the number of cars passing through an intersection, and fit a justifiable linear regression model onto the data. I determined that there was a significant relationship between the PM levels and the number of cars. I determined, with 95 percent confidence, that as the number of cars rose by 1, the PM levels increased by a number between 1.0002 and 1.0003. The number of cars couldn't explain much of the variation in the PM levels, specifically, only 12.96 percent, but it still was able to predict the PM levels given a certain amount of cars with some prediction error.
+
+
+
+I suggest running another data collection period in which you will track the PM levels, the number of cars going through the intersection, and other variables such as the temperature, the rainfall and the amount of pedestrians. I suggest doing more data collecting, because the number of cars is not explaining all the variation of the PM levels. 
+
+Another study, which would be interesting, is to study PM levels in a less busy intersection close by. We can understand more about the relationship of PM levels and cars to see if the PM levels are lower if there are less cars in the area. 
+
+
+\end{document}

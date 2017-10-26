@@ -1,0 +1,154 @@
+---
+title: "How to Make a Free Throw Shooter Miss"
+author: "Kevin Toney"
+date: "April 13, 2017"
+output:
+  beamer_presentation:
+    keep_tex: true
+    colortheme: rose
+    fig_caption: no
+    fonttheme: serif
+    incremental: no
+    slide_level: 2
+    theme: Singapore
+    toc: yes
+---
+
+# Research Question & Background
+
+## Questions
+
+- What factors influence a player's free throw percentage for good or for bad? 
+- What makes a free throw shooter miss?
+- Does crowd noise make a difference?
+
+## What we did to find out!
+
+- We asked 20 people to shoot 20 free throws.
+- Before they shot the free throws, we separated them, with the help of a random number generator, into four different groups. Each group represented a different situation. Each situation is shown in the table below. 
+
+```{r, echo=F}
+library(knitr)
+include_graphics("table_of_groups.png")
+```
+
+[found out how to hide figure alt text because of this webpage: http://stackoverflow.com/questions/38514954/removing-figure-text-in-rmarkdown]: <> 
+
+# Experimental Design
+
+## Statistical Model
+
+\begin{itemize}
+\item We used the following statistical model to design our experiment:
+\item $x_{ijk} = µ + Noise_j + Inflation_j + Interaction_{jk} + \epsilon_{ijk}$
+\begin{itemize}
+\item µ = overall mean
+\item $Noise_j$ = effect due to j th level of “Noise" factor
+\item $Inflation_k$ = effect due to kth level of “Inflation" factor
+\item $Interaction_{jk}$ = effect due to interaction between levels j and k
+\item $x_{ijk}$ = observed outcome for individual i
+\item $\epsilon_{ijk}$ = random error associated with individual i
+\end{itemize}
+\end{itemize}
+
+## Experimental Design
+
+- 2x2 Basic Factorial Design
+- Factor 1: Crowd Noise
+- Factor 2: Inflation Level
+- Control: Shooting free throws without noise and with an inflated ball
+
+
+# Results
+
+## The Experiment's Results
+
+![Data table for the results](results_table.png)
+
+## Precautions against confounding variables
+
+- I put the data into a binomial distribution to make each shooter independent of each other. 
+
+# Analysis
+
+## Notes for Reference
+- The variances of each group are not similar. In order to run and ANOVA regression model, we made a log transformation to the data so the data had variances that were more alike. 
+- We found an interaction between noise and inflation.
+
+## The Interaction Plots
+![The interaction plots for the two factors](interaction.png)
+
+[found out how to insert an image because of this webpage: http://stackoverflow.com/questions/4823468/comments-in-markdown]: <> 
+
+## Method of Analysis
+- We performed a poisson regression model to compare the average amount of shots made per player.
+- In poisson regression, the null deviance is the base model. If we do regression for all three factors, the degrees of freedom is 16.
+
+## Significant Findings
+
+``` {r, tidy= TRUE, dpi= 80}
+pois_diff <- 35.945 - 22.174
+1 - pchisq(pois_diff, df=3)
+pois_diff_2 <- 35.945 - 25.802
+1 - pchisq(pois_diff_2, df=2)
+pois_diff_3 <- 25.825 - 25.802
+1 - pchisq(pois_diff_3, df=1)
+pois_diff_4 <- 35.922 - 25.802
+1 - pchisq(pois_diff_4, df=1)
+```
+
+- The inflation levels in the ball and the interaction between noise and inflation make a statistically significant difference on the amount of made free throws by a free throw shooter after 20 attempts.
+
+# Conclusions
+
+## So what?
+
+- Now, do these statistically significant factors have a practical significance? The predict.glm function will help us determine statistical significance.
+``` {r, echo = F, out.width = '80%'}
+rm(list=ls())
+#knitr::opts_chunk$set(width = 80)
+library(ggplot2)
+
+#My data is following a binomial distribution.
+#I also have a sample size of 20 for each of the 20 shooters
+#That sample size is enough for binomial regression.
+
+#variances, in regards to p, will variable. p, the proportion of
+#each shooter will be a random variable. log tranformations
+#help account for the variability. 
+#each five people in a group will have a p. value. 
+#CLT theorem for each group 5*20 shots will 
+#help estimate p values. Variance of a proportion is
+#pi *(1-pi)/n. Variance of proportion is .05/10. 
+
+freethrows = read.table("Free Throws.csv", header=T,sep=",") 
+#the reponse variable has a unit of makes per attempts
+#since I divided the makes by 20 attempts, the amount of significant digits decreased from 4
+#I found the median to be 0.475.
+
+######## EXPLORATORY DATA ANALYSIS######### 
+
+freethrows$Group = as.factor(freethrows$Group) 
+freethrows$Noise = as.factor(freethrows$Noise) 
+freethrows$Inflation = as.factor(freethrows$Inflation) 
+
+#are my ANOVA assumptions met from using a log transformation? Yes
+logsurv = log(freethrows$Response)##Log Transformation## 
+
+#binomial regression
+reg1 <- glm(freethrows$Response~Inflation+Noise+Inflation*Noise, family=binomial, data=freethrows)
+
+#null deviance is the base model. 
+#16 degrees of freedom come after taking the three factors. 
+#3 degree of freedom and a chi square of 1.2. 
+
+#try running a poisson regression
+#I am running GLM on the regular data, not log transformations
+reg_pois1 <- glm(freethrows$Response*20~Inflation+Noise+Inflation*Noise, 
+                 family=poisson, data=freethrows)
+predict.glm(reg_pois1, type = "link")
+```
+- In my opinion, the difference between the null model (1.6864) and the inflation factor (2.4849) is big enough (0.7985) to be practically significant. I believe this is true because that difference would be a four percent difference in a shooter's free throw percentage.
+
+## Conclusion
+- Finally, my research concludes that basketball players will not be affected enough by crowd noise alone or by the interaction of noise and inflation.

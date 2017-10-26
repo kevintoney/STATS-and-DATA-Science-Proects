@@ -1,0 +1,306 @@
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+%\usepackage{filecontents}
+%\usepackage[style=authoryear,backend=bibtex]{biblatex}
+\usepackage[nottoc]{tocbibind}
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1.0 cm}{1.5 cm}{1.0 cm}{1.5 cm}
+
+\setlength\lineskip{12pt}
+\title{How To Make a Free Throw Shooter Miss}\par					% Title
+\author{Kevin Toney, Chase Weight, Nick Mena}								% Author
+\date{\today}											% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+    \textsc{\LARGE STAT 230 Revised Project}\\[2.0 cm]	% University Name
+	\textsc{\Large STAT 290}\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.8\textwidth}
+		\begin{flushleft} \large
+			\emph{Author:}\\
+			\theauthor
+			\end{flushleft}
+			\end{minipage}~
+	
+	{\large \thedate}\\[2 cm]
+ 
+	\vfill
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Abstract}
+\hspace{1cm}In this study, we performed an experiment to determine what factors significantly influence the amount of free throws made by a basketball player. We decided on this experiment because we are basketball fans that regularly attend games. We were wondering how much our crowd noise and ball inflation levels mattered in a player's shooting performance. 
+
+\hspace{1cm}The factors of interest were whether there were large amounts of noise in the room or not, and whether the basketball was fully inflated or not. Therefore, this experiment was a $2^2$ factorial design. We hypothesized that none of these factors would make a significant impact.
+
+\hspace{1cm}We invited a group of 20 college students to participate in our study. These students varied in gender and skill, but we used a poisson distribution to account for each shooter independently. During the experiment, we assigned the students to one of four groups. One group had deflated balls with no noise, another had deflated balls with lots of noise. Then, the last two groups used inflated balls with silence, or inflated balls with lots of noise. Each student shot 20 free throws and recorded the proportion of made shots. 
+
+\hspace{1cm}After gathering data, we performed poisson regression. At the significance level of alpha=0.05, we found shooting free throws with a different level of inflation made the only statistically significant difference. As a matter of fact, shooting with deflated balls improved the free throw percentage of a player.
+
+\hspace{1cm}The experiment is practically significant because a team can be assured that crowd noise, alone, won't significantly impact their players at the free throw line. Other factors, which can be studied more, such as the player's emotional state, visual distractions, fatigue, or confidence level may affect their performance. Therefore, we would recommend that basketball players practice regularly on their free throw shooting and not worry about the crowd's noise.
+
+\hspace{1cm}Now we can answer our question "What factors significantly influence a players free throw percentage?" We conclude the inflation level of the ball, not the noise level of the crowd, makes a significant impact on free throw shooting.\\
+
+
+
+\newpage
+
+\section{Introduction}
+
+In this study, we performed an experiment to determine what factors significantly influence the proportion of free throws made by a basketball player.We decided on performing this experiment because we are huge basketball fans, and wanted to know if our presence made a difference in the outcome of a game. 
+
+We were wondering how much a fan's noise mattered in the outcome of the game. Additionally, we wondered if the amount of air in a ball would make a difference. The reason why we were interested in the inflation level is because a scandal with a famous football player, named Tom Brady, accused the player of deflating footballs so he would have more control over the ball he threw. Our original hypothesis was that none of these factors made a significant impact. 
+
+\section{Experimental Design}
+
+We randomly split up 20 students into four groups and they had an objective to shoot 20 free throws. Each group reflected a combination of the factors of interest. For your information, these students varied in gender and skill, but we used a poisson distribution to account for each shooter independently.
+
+The factors of interest (main effects) were whether there were large amounts of noise or not, and whether the basketball is fully inflated or not. For a table of these factors, see the figure below. We chose to test only these two factors out of the many that would influence a player's shooting. For example, a player might struggle shooting free throws because they are tired, sick, or angry. We ignored those factors for this experiment. 
+
+\includegraphics[scale=0.33]{table_of_groups.png}
+
+The reponse variable has a unit of makes in 20 attempts. The variable is measured in counts, thus supporting our chosen method of analysis. 
+
+We decided to run a poisson regression for analysis. The data has a sample size of 20 for each of the 20 shooters. That sample size is enough for a poisson distribution and a poisson regression model. Each of the five people in a group will have a p-value. The central limit theorem says that for each group, 5*20 shots will help estimate p-values. 
+
+\section{Results}
+
+%This part of the report is very important, I can have R run code from SAS, Python, and other
+%programming languages. This block runs code from separate files in your server. 
+%this is the setup area
+
+Here is the data we gathered for each of the 20 shooters. 
+<<setup, echo=FALSE>>=
+library(knitr)
+library(xtable)
+@
+
+%if there is a tab separator, use "/t". 
+<<readdata, echo=TRUE>>=
+freethrows <- read.table("Free Throws.csv", header=T, sep=",")
+freethrows$Response <- freethrows$Response*20
+@
+
+<<summarystats, echo=TRUE>>=
+summary(freethrows$Response)
+@
+
+<<table1, results='asis', echo=FALSE>>=
+data.table <- xtable(freethrows, label="tab:ldsl", caption="The response variable is the amount of free throw makes in 20 attempts. In the 'Silence' and 'Inflated' columns, a one means 'Yes' and a zero means 'No'.")
+print(data.table, include.rownames = F)
+@
+According to our results, group two had the highest free throw percentage. This group shot in silence and used a underinflated ball. 
+
+\section{Analysis}
+
+Here are the boxplots showing how each group's data relates to each other. 
+<<factors, echo=FALSE>>=
+freethrows$Response <- freethrows$Response/20
+freethrows$Group = as.factor(freethrows$Group) 
+freethrows$Silence = as.factor(freethrows$Silence) 
+freethrows$Inflated = as.factor(freethrows$Inflated)
+library(ggplot2)
+logsurv = log(freethrows$Response)##Log Transformation## 
+@
+
+<<analysis_graphics, echo=FALSE>>=
+response_box <- ggplot(freethrows, aes(x=Group, y=Response)) + geom_boxplot(fill=c("green", "lightblue", "pink", "orange")) + labs(title="Group Distributions", y = "Shooting Percentage") + coord_fixed(ratio=3)  + theme(plot.title = element_text(hjust = 0.5))
+
+log_box <- ggplot(freethrows, aes(x=Group, y=logsurv)) + geom_boxplot(fill=c("green", "lightblue", "pink", "orange")) + labs(title="Group Distributions", y = "Log Transformations") + coord_equal() + theme(plot.title = element_text(hjust = 0.5))
+
+response_box
+log_box
+
+#consider including the qqplots, for the residuals
+@
+You can see that the variances of each group are not similar. We made a log transformation to the data so the data had variances that were more alike. 
+
+<<factor_means, echo=FALSE>>=
+mean11 = mean(logsurv[freethrows$Silence==1 & freethrows$Inflated==1]) 
+mean10 = mean(logsurv[freethrows$Silence==1 & freethrows$Inflated==0]) 
+mean01 = mean(logsurv[freethrows$Silence==0 & freethrows$Inflated==1]) 
+mean00 = mean(logsurv[freethrows$Silence==0 & freethrows$Inflated==0]) 
+@
+
+Furthermore, we found an apparent interaction between noise and inflation. The interaction graphs are below. 
+
+<<interactions, echo=FALSE>>=
+par(mfrow = c(1,2))
+interaction1 <- plot(c(1,2),c(mean11,mean01),type="l", ylim=c(-2,0), 
+                     xlim=c(0.5,2.5), xlab="", ylab="Log Transformed Data", 
+                     xaxt="n", lwd=3, col="red", cex.lab=1.4) 
+axis(1,at=c(1,2),labels=c("No Noise","Noise"),cex.axis=1.4) 
+lines(c(1,2),c(mean10,mean00),col="blue",lwd=3) 
+legend(x=1,y=0,legend=c("Inflated","Deflated"), col=c("red","blue"),lty=c(1,1),
+       lwd=c(3,3)) 
+
+interaction2 <- plot(c(1,2),c(mean11,mean10),type="l", ylim=c(-2,0), 
+                     xlim=c(0.5,2.5), xlab="", ylab="Log Transformed Data", 
+                     xaxt="n", lwd=3, col="red", cex.lab=1.4) 
+axis(1,at=c(1,2),labels=c("Inflated","Deflated"),cex.axis=1.4) 
+lines(c(1,2),c(mean01,mean00),col="blue",lwd=3) 
+legend(x=1,y=0,legend=c("No Noise","Noise"),col=c("red","blue"),lty=c(1,1),
+       lwd=c(3,3)) 
+
+mtext("Interaction Plots for the Two Factors", side = 3, line = -3, font=2, 
+      cex=1.5, outer = TRUE)
+
+@
+
+I performed a poisson regression model to compare the average amount of shots made per player. If we do regression for all three factors, the degrees of freedom is 16. Using this model, we looked at a chi square of 1.2. 
+
+<<poisson_regression >>=
+
+#anova test on a log transformation
+anova(lm(logsurv~Inflated+Silence+Inflated*Silence, data=freethrows))
+#anova(lm(freethrows$Response~Inflation+Noise+Inflation*Noise, data=freethrows))
+
+#TukeyHSD(aov(lm(logsurv ~ Group, data=freethrows)))
+
+#try running a poisson regression
+#I am running GLM on the regular data, not log transformations
+
+#null deviance is the base model. 
+#16 degrees of freedom come after taking the three factors. 
+#3 degree of freedom and a chi square of 1.2. 
+
+reg_pois1 <- glm(freethrows$Response*20~Inflated+Silence+Inflated*Silence,
+                family=poisson, data=freethrows)
+summary(reg_pois1)
+pois_diff <- 35.945 - 22.174
+1 - pchisq(pois_diff, df=3)
+predict.glm(reg_pois1, type = "link")
+#The counts are not the same = conclusion. 
+#use the counts because they have more variability n*p*q. 
+
+
+reg_pois2 <- glm(freethrows$Response*20~Inflated+Silence, 
+                family=poisson, data=freethrows)
+summary(reg_pois2)
+pois_diff_2 <- 25.802 - 22.174
+1 - pchisq(pois_diff_2, df=2)
+#The interaction and the main effects are significant. 
+
+
+reg_pois3 <- glm(freethrows$Response*20~Inflated, 
+                family=poisson, data=freethrows)
+summary(reg_pois3)
+pois_diff_3 <- 25.825 - 22.174
+1 - pchisq(pois_diff_3, df=1)
+
+
+reg_pois4 <- glm(freethrows$Response*20~Silence, 
+                family=poisson, data=freethrows)
+summary(reg_pois4)
+pois_diff_4 <- 35.922 - 22.174
+1 - pchisq(pois_diff_4, df=1)
+#I am trying the predict function for a glm object
+#What are the results telling me? 
+
+
+#I'll also try the linear model for log transformed data.
+
+#the difference from when we threw out the interaction (25.802 - 22.174) is not
+#significantly different
+#The difference from when we threw out the inflaction factor is 35.922. 
+#There is a significant difference in that factor.
+#the difference from the base model of 22.174 and when we threw out noise, is 
+#not statistically significant. 25.825-22.174 isn't a difference. 
+
+@
+
+\section{Conclusion}
+
+<<conclusion_statistically >>=
+pois_diff <- 35.945 - 22.174
+1 - pchisq(pois_diff, df=3)
+
+pois_diff_2 <- 25.802 - 22.174
+1 - pchisq(pois_diff_2, df=2)
+
+pois_diff_3 <- 25.825 - 22.174
+1 - pchisq(pois_diff_3, df=1)
+
+pois_diff_4 <- 35.922 - 22.174
+1 - pchisq(pois_diff_4, df=1)
+@
+
+The difference from when we threw out the inflaction factor (35.922), is a significant difference from the model resulting from all three factors (22.174). The difference from the model of 25.802, when we threw out noise, is not significant enough if it's compared to the model with all factors (22.174). The interaction is also not statistically significant. 
+
+Therefore, only the inflation levels in the ball make a statistically significant difference on the amount of made free throws by a free throw shooter after 20 attempts. 
+
+<< practical_significance >>=
+predict.glm(reg_pois1, type = "link")
+@
+
+Now, does the statistically significant factor have a practical significance? The predict.glm function helped me determine practical significance. The predict function gave four different amounts of made free throws. I looked at these four different results (1.6864, 2.4849, 2.0794, 2.2824) and compared them to each other.
+
+In my opinion, the difference between the null model (1.6864) and the inflation factor (2.4849) is big enough (0.7985) to be practically significant. I believe this is true because that difference would be a four percent difference in a shooter's free throw percentage. However, the difference between the null model (1.6864) and the interaction factor (2.2824), which is 0.5960 is not big enough to be practically significant. 
+
+Finally, my research concludes that basketball players will not be affected enough by crowd noise alone or by the interaction of noise and inflation. When players practice free throw shooting, they will need to worry about other factors, such as the inflation levels of the ball, their health, their confidence level, or their emotional state. 
+\\
+
+
+%take this code
+<<bibliography, include=FALSE, cache=FALSE, echo=FALSE>>=
+opts_chunk$set(fig.path='', fig.align='center', fig.show='hold', eval=TRUE, echo=TRUE)
+options(replace.assign=TRUE,width=80)
+library(knitr)
+library(ggplot2)
+library(xtable)
+library(repmis)
+Sys.setenv(TEXINPUTS=getwd(),
+           BIBINPUTS=getwd(),
+           BSTINPUTS=getwd())
+## In this example you need to have the packages installed aready.
+# Load the packages and create a BibTeX file
+LoadandCite(pkgs=NULL, file = 'R-Pckgs.bib', install=FALSE)
+
+@
+%take the above code
+
+\bibliographystyle{plain}
+\bibliography{biblist}
+%\printbibliography
+%\cite{babel}, \cite{natbib}, \cite{inputenc}, \cite{url}, \cite{amsmath}, \cite{graphicx},
+%\cite{parskip}, \cite{fancyhdr}, \cite{vmargin}, \cite{knitr}, \cite{ggplot2}, \cite{xtable}
+
+\end{document}

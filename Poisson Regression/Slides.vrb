@@ -1,0 +1,29 @@
+\frametitle{Practical Significance}
+
+\begin{itemize}
+\tightlist
+\item The predict.glm function helped find practical significance.
+\end{itemize}
+
+\begin{verbatim}
+##        1        2        3        4
+          1.686399  1.686399 1.686399 1.686399
+5        6        7        8
+1.686399 2.484907 2.484907 2.484907
+##        9        10        11        12
+          2.484907 2.484907 2.079442 2.079442
+## 13       14       15       16
+  2.079442 2.079442 2.079442 2.282382
+##       17        18        19        20
+        2.282382   2.282382  2.282382  2.282382
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  I believe the difference between the null model (1.6864) and the
+  inflation factor (2.4849) is big enough (0.7985) to be practically
+  significant. This is true because the difference would be
+  four percent in a shooter's free throw percentage.
+\end{itemize}
+

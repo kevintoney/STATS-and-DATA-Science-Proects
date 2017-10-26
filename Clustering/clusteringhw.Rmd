@@ -1,0 +1,232 @@
+---
+title: "HW Clustering"
+author: "Kevin Toney"
+date: "October 20, 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
+
+#load the necessary packages
+library(datasets)
+library(stats)
+library(dbscan)
+library(cluster)
+library(caret)
+library(e1071)
+```
+
+##Problem 3: K-Means Clustering 
+
+```{r problem3}
+#load the iris dataset
+iris_copy <- iris[,c(1:4)]
+k2 <- kmeans(iris_copy, 2)
+k2$size
+#for k=2, the size of the clusters is 53 and 97.
+k2clust <- k2$cluster
+sil2 <- silhouette(k2$cluster, dist(iris_copy))
+y2 <- summary(sil2)[[4]] #average silhouette width
+#the f-measure is 77.6%
+
+k3 <- kmeans(iris_copy, 3)
+sil3 <- silhouette(k3$cluster, dist(iris_copy))
+y3 <- summary(sil3)[[4]]
+#for k=3, the size of the clusters is 62, 38, and 50. 
+#The f-measure is 88.4%
+
+k4 <- kmeans(iris_copy, 4)
+sil4 <- silhouette(k4$cluster, dist(iris_copy))
+y4 <- summary(sil4)[[4]]
+#For k=4, the size of the clusters is 27, 28, 50, and 45.
+#The f-measure is 91.6%
+
+kmeans(iris_copy, 5)
+#For k=5, the size of the clusters is 38, 19, 62, 8, and 23.
+#The F-measure is 89.8%
+
+kmeans(iris_copy, 7)
+#For k=7, the size of the clusters is 50, 22, 19, 19, 12, 21, and 7.
+#The F-measure is 94.5%
+
+kmeans(iris_copy, 9)
+#For k=9, the size of the clusters is 23, 22, 28, 8, 19, 12, 19, 8, and 11.
+#The F-measure is 95.4%
+
+kmeans(iris_copy, 11)
+#For k=11, the size of the clusters is 3, 4, 12, 12, 11, 19, 17, 19, 12, 22, and 19.
+#The F-measure is 96.3%
+
+#The value of k that produces the highest F-score is k=11.
+#I think it is interesting the value of k=5 produced a lower 
+#F-measure than most of the other values of k. 
+#That amount of centroids proved to be the least accurate. 
+
+
+###Cool automatic k-means clustering program
+
+k <- c(2, 3, 4, 5, 7, 9, 11)
+km.out <- list()
+sil.out <- list()
+x <- vector()
+y <- vector()
+for (i in k){
+  set.seed(5)
+  km.out[i] <- list(kmeans(iris_copy, centers=i))
+  sil.out[i] <- list(silhouette(km.out[[i]]$cluster, dist(iris_copy)))
+  
+  
+  x[i] <- i
+  y[i] <- summary(sil.out[[i]])[[4]]
+}
+
+#only get the silhouette widths for the k values we are working with. 
+y <- y[!is.na(y)]
+y <- y[y>0]
+y
+
+#I think the silhouette widths are telling me that a cluster of 11
+#most accurate size of clusters. 
+```
+For k=2, the size of the clusters is 53 and 97. The f-measure is 77.6%.
+
+For k=3, the size of the clusters is 62, 38, and 50. The f-measure is 88.4%.
+
+For k=4, the size of the clusters is 27, 28, 50, and 45. The f-measure is 91.6%.
+
+For k=5, the size of the clusters is 38, 19, 62, 8, and 23. The F-measure is 89.8%.
+
+For k=7, the size of the clusters is 50, 22, 19, 19, 12, 21, and 7. The F-measure is 94.5%.
+
+For k=9, the size of the clusters is 23, 22, 28, 8, 19, 12, 19, 8, and 11. The F-measure is 95.4%.
+
+For k=11, the size of the clusters is 3, 4, 12, 12, 11, 19, 17, 19, 12, 22, and 19. The F-measure is 96.3%.
+
+The value of k that produces the highest F-score is k=11. I think it is interesting the value of k=5 produced a lower F-measure than most of the other values of k. That amount of centroids proved to be the least accurate. 
+
+
+##Problem 4: Hierarchical Agglomerative Clustering
+```{r problem4}
+
+agglom <- hclust(dist(iris_copy))
+
+#plot the dendogram
+plot(agglom, xlab="Distances")
+#check the heights
+agglom$height
+
+```
+
+###b 
+I would say an optimal threshold is 6 clusters. There is a large jump in the distance function starting at heights close to 1.7. All of the distance/height values below 1.8 will be optimal clusters, which will make 6 clusters. 
+
+###c
+```{r comparisons}
+mean(cutree(agglom, k=2) == km.out[[2]][[1]])
+
+mean(cutree(agglom, k=3) == km.out[[3]][[1]])
+
+mean(cutree(agglom, k=4) == km.out[[4]][[1]])
+
+mean(cutree(agglom, k=5) == km.out[[5]][[1]])
+
+mean(cutree(agglom, k=7) == km.out[[7]][[1]])
+
+mean(cutree(agglom, k=9) == km.out[[9]][[1]])
+
+mean(cutree(agglom, k=11) == km.out[[11]][[1]])
+```
+The number and nature are significantly different from those we were given in K-means for the values of k greater than 4. You can use a cutree command to see the cluster assignments in hierarchical clustering and compare them to the assignments given in k-means. 
+
+
+
+##Problem 5: DBSCAN
+
+```{r dbscan}
+iris_mat <- as.matrix(iris_copy)
+eps <- c(0.2, 0.3, 0.4, 0.5, 0.6, 
+         0.8, 1)
+scan <- list()
+sizes <- list()
+testpreds <- list()
+for(i in 1:length(eps)){
+  scan[[i]] <- dbscan(iris_mat, eps = eps[i])
+  testpreds[[i]] <- predict(scan[[i]], type="class")
+  
+}
+classes <- as.integer(iris$Species)
+
+scan[[1]]
+confusionMatrix(testpreds[[1]], classes-1)
+
+scan[[2]]
+#confusionMatrix(testpreds[[2]], classes-1)
+
+scan[[3]]
+#confusionMatrix(testpreds[[3]], classes-1)
+
+scan[[4]]
+confusionMatrix(testpreds[[4]], classes-1)
+
+scan[[5]]
+confusionMatrix(testpreds[[5]], classes-1)
+
+scan[[6]]
+confusionMatrix(testpreds[[6]], classes-1)
+
+scan[[7]]
+confusionMatrix(testpreds[[7]], classes-1)
+```
+####b
+For epsilon equaling 0.2, the size of the clusters is 133, 10, and 7, with a F-measure of 0.22. 
+
+For epsilon equaling 0.3, the size of the clusters is 96, 37, 12, and 5.
+
+For epsilon equaling 0.4, the size of the clusters is 32, 46, 36, 14, and 22. 
+
+For epsilon equaling 0.5, the size of the clusters is 17, 49, and 84. The F-measure is 0.2733.
+
+For epsilon equaling 0.6, the size of the clusters is 9, 49, and 92. The F-measure is 0.3133.
+
+For epsilon equaling 0.8, the size of the clusters is 2, 50, and 98. The F-measure is 0.32.
+
+For epsilon equaling 1, the size of the clusters is 50, 100. The F-measure is 0.333.  
+
+####c
+The epsilon value with the highest F-measure is an epsilong of 1. 
+
+
+####d
+I think the confusion matrix is super interesting. I want to learn more of what the results mean and how the matrix works. Also, I think it is interesting the F-measures continued to get better as epsilon increased. 
+
+
+####e
+The number and nature of clusters is different than k-means and heirarchical agglomerative clustering. K-means sees what points are within a certain radius from a point, but DBSCAN uses the number of points within a certain radius. Hierarchical agglomerative clustering figures out the pairwise differences between points and clusters the data points based on those differences, whether they be maximum differences, mininmum or average differences.
+
+
+##Problem 6: Swiss Dataset: Hierarchical Agglomerative Clustering
+```{r swisscluster}
+swiss.dat <- swiss
+
+
+plot(swiss.dat$Agriculture, swiss.dat$Catholic, xlab = "Males in Agriculture",
+     ylab="Percent of Cathoics", main = "Agriculture Workers vs. Catholics")
+
+colos <- c("red", "blue", "brown")
+
+hierach <- hclust(dist(swiss.dat[,-5]))
+hierach$height
+plot(hierach, xlab = "Swiss Cities")
+
+cutree(hierach, k=2)
+
+#plot(swiss.dat$Infant.Mortality, y, xlab = "Infant Mortality",
+     #ylab="Fertility", main = "Fertility vs. Infant Mortality", #col=cols[cutree(hierach, k=2)])
+plot(swiss.dat$Agriculture, swiss.dat$Catholic, xlab = "Males in Agriculture",
+     ylab="Percent of Cathoics", main = "Agriculture Workers vs. Catholics",
+     col=colos[cutree(hierach, k=2)])
+
+
+```

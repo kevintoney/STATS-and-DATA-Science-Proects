@@ -1,0 +1,13 @@
+name: NFLBirthState
+title: NFLBirthState
+username:
+account: kevintoneystatistics
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 831336
+bundleId: 2004729
+url: https://kevintoneystatistics.shinyapps.io/NFLBirthState/
+when: 1555027897.05342
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: app.R|getLonLat.R|lookUpCity.R

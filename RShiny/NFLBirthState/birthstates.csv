@@ -1,0 +1,153 @@
+Rk,Country,State,# of Pros,# Active,# of HOF,G,TDs,Most Touchdowns,TDs,Most Games Played,Games
+1,Unknown,,53,53,0,407,13,,,,
+2,USA,,292,0,0,1764,70,Marty Norton\NortMa20,10,Two-Bits Homan\HomaTw20,81
+3,USA,AK,13,0,0,955,17,Steve Smith\SmitSt02,12,Mark Schlereth\SchlMa00,156
+4,USA,AL,710,64,7,36394,1920,Terrell Owens\OwenTe00,156,Terrell Owens\OwenTe00,219
+5,USA,AR,313,14,5,15178,1571,Don Hutson\HutsDo00,105,Trey Junkin\JunkTr20,281
+6,USA,AZ,190,27,2,10237,413,Todd Heap\HeapTo00,42,Randall McDaniel\McDaRa00,222
+7,USA,CA,2384,230,18,120295,7195,Marcus Allen\AlleMa00,145,Jeff Feagles\FeagJe20,352
+8,USA,CO,172,14,1,7412,299,Dutch Clark\ClarDu20,42,John Denney\DennJo20,208
+9,USA,CT,203,13,3,7269,394,Joe Horn\HornJo00,58,John Carney\carnejoh01,302
+10,USA,DC,191,13,3,9831,557,Brian Westbrook\WestBr00,73,Kevin Glover\GlovKe00,191
+11,USA,DE,32,5,0,1297,42,Tim Wilson\WilsTi00,9,Luke Petitgout\PetiLu20,117
+12,USA,FL,1441,231,11,77775,5586,Emmitt Smith\SmitEm00,175,Phil Dawson\dawsophi01,295
+13,USA,GA,873,123,9,49324,3135,Jim Brown\BrowJi00,126,John Kasay\kasayjoh01,301
+14,USA,HI,106,14,0,5451,91,Arnold Morgado\MorgAr00,16,Dominic Raiola\RaioDo20,219
+15,USA,IA,314,13,1,14783,781,Darren Sproles\SproDa00,61,Reggie Roby\RobyRe20,238
+16,USA,ID,69,5,1,3520,156,Merril Hoge\HogeMe00,34,Wayne Walker\WalkWa01,200
+17,USA,IL,1085,52,13,46510,2570,Bill Brown\BrowBi00,76,Mike Kenn\KennMi00,251
+18,USA,IN,416,22,3,17776,980,Mark Clayton\ClayMa00,85,Rod Woodson\WoodRo01,238
+19,USA,KS,249,14,5,11752,785,John Riggins\RiggJo00,116,Kendall Gammon\GammKe00,234
+20,USA,KY,244,14,3,10835,579,Shaun Alexander\AlexSh00,112,Jim Marshall\MarsJi00,282
+21,USA,LA,862,73,8,47096,3901,Marshall Faulk\FaulMa00,136,Peyton Manning\MannPe00,266
+22,USA,MA,411,8,4,16909,797,Don McCauley\McCaDo00,58,Joe Nash\NashJo00,218
+23,USA,MD,247,35,0,12651,866,Chuck Foreman\ForeCh00,76,Sean Landeta\LandSe20,284
+24,USA,ME,26,1,0,1059,19,Thurlow Cooper\CoopTh00,8,Al Harris\HarrAl20,149
+25,USA,MI,719,55,5,37852,2288,Antonio Gates\GateAn00,114,Earl Morrall\MorrEa00,255
+26,USA,MN,405,20,5,15418,841,Larry Fitzgerald\FitzLa00,110,Rohn Stark\StarRo20,233
+27,USA,MO,399,32,5,18679,1095,Jeremy Maclin\MaclJe00,49,Pat Leahy\leahypat01,250
+28,USA,MS,618,35,9,32615,2340,Jerry Rice\RiceJe00,208,Jerry Rice\RiceJe00,303
+29,USA,MT,69,4,0,3011,38,Frank Akins\AkinFr00,7,Tim Hauck\HaucTi20,183
+30,USA,NC,576,55,7,30461,1749,Torry Holt\HoltTo00,74,Bruce Matthews\MattBr00,296
+31,USA,ND,52,3,0,2139,91,Pete Retzlaff\RetzPe00,47,Andy Heck\HeckAn20,185
+32,USA,NE,245,12,3,10666,491,Ahman Green\GreeAh00,74,Mick Tingelhoff\TingMi00,240
+33,USA,NH,24,1,0,1033,31,Greg Landry\LandGr00,22,Don Macek\MaceDo20,162
+34,USA,NJ,638,67,6,33524,2099,Franco Harris\HarrFr00,100,Irving Fryar\FryaIr00,255
+35,USA,NM,42,4,2,2293,119,Tommy McDonald\McDoTo00,85,Ronnie Lott\LottRo00,192
+36,USA,NV,64,13,0,3106,256,Steven Jackson\JackSt00,78,Steven Jackson\JackSt00,160
+37,USA,NY,854,46,7,36565,1674,Rob Gronkowski\GronRo00,77,Ricky Proehl\ProeRi00,244
+38,USA,NZ,1,1,0,10,0,,,Paul Lasike\LasiPa00,10
+39,USA,OH,1456,94,22,64857,3462,Cris Carter\CartCr00,131,Lou Groza\GrozLo20,268
+40,USA,OK,474,24,5,19760,1297,Steve Largent\LargSt00,101,Josh Brown\brownjos01,201
+41,USA,OR,172,17,1,8754,381,Jerry Smith\SmitJe01,60,Stan Brock\BrocSt20,234
+42,USA,PA,1427,72,29,64126,4582,Marvin Harrison\HarrMa00,128,George Blanda\BlanGe00,340
+43,USA,RI,39,1,0,1564,83,Tom Mitchell\MitcTo00,24,Al Del Greco\delgralx01,248
+44,USA,SC,420,58,2,26285,1620,Stanley Morgan\MorgSt00,73,Clyde Simmons\SimmCl00,236
+45,USA,SD,57,2,1,2877,185,Dallas Clark\ClarDa00,53,Adam Vinatieri\vinatada01,337
+46,USA,TN,416,40,5,20325,774,Jason Witten\WittJa00,68,Jason Witten\WittJa00,239
+47,USA,TX,2398,192,31,124817,8280,LaDainian Tomlinson\TomlLa00,162,Matt Stover\stovemat01,297
+48,USA,UT,125,14,2,5817,281,Steve Young\YounSt00,43,Merlin Olsen\OlseMe00,208
+49,USA,VA,458,52,10,27269,1981,Thomas Jones\JoneTh00,71,Bruce Smith\SmitBr00,279
+50,USA,VT,10,0,0,444,16,Jim Laird\LairJi20,13,Steve Wisniewski\WisnSt00,206
+51,USA,WA,303,23,4,15630,834,Corey Dillon\DillCo00,89,Jason Hanson\hansojas01,327
+52,USA,WI,440,28,8,18095,1012,Elroy Hirsch\HirsEl00,66,Mike Webster\WebsMi00,245
+53,USA,WV,178,5,3,7038,580,Randy Moss\MossRa00,157,Randy Moss\MossRa00,218
+54,USA,WY,38,2,0,2585,212,Jack Snow\SnowJa00,45,Don Cockroft\cockrdon01,188
+55,American Samoa,,34,3,0,1861,33,Mosi Tatupu\TatuMo00,21,Mosi Tatupu\TatuMo00,199
+56,Angola,,1,0,0,24,0,,,Christo Bilukidi\BiluCh00,24
+57,Argentina,,3,0,0,201,0,,,Martin Gramatica\gramamar01,109
+58,Armenia,,1,0,0,48,0,,,Mike Gulian\GuliMi20,48
+59,Australia,,14,5,0,721,0,,,Darren Bennett\BennDa20,160
+60,Austria,,6,0,0,450,0,,,Ray Wersching\werscray01,206
+61,Bahamas,,3,0,0,79,4,Devard Darling\DarlDe00,4,Devard Darling\DarlDe00,46
+62,Barbados,,5,0,0,306,8,Elvis Joseph\JoseEl00,3,Robert Bailey\BailRo20,146
+63,Belgium,,2,0,0,90,0,,,Terry Ray\RayxTe20,73
+64,Belize,,2,1,0,36,0,,,Rakeem Nunez-Roches\NuneRa00,34
+65,Bermuda,,3,0,0,98,20,Ron Davenport\DaveRo00,17,Ron Davenport\DaveRo00,67
+66,Bolivia,,1,0,0,4,0,,,Wilson Alvarez\alvarwil01,4
+67,Brazil,,1,1,0,53,0,,,Cairo Santos\SantCa01,53
+68,Bulgaria,,1,0,0,21,0,,,Boni Petcoff\PetcBo20,21
+69,Burma,,1,0,0,10,2,Don Thompson\ThomDo22,2,Don Thompson\ThomDo22,10
+70,Cameroon,,6,2,0,281,0,,,Roman Oben\ObenRo20,143
+71,Canada,,107,13,2,5003,195,Nate Burleson\BurlNa00,43,Eddie Murray\murraedd01,250
+72,Colombia,,2,0,0,167,0,,,Fuad Reveiz\reveifua01,147
+73,Congo,,3,1,0,50,0,,,Andy Mulumba\MuluAn00,22
+74,Croatia,,2,0,0,34,0,,,George Perpich\PerpGe20,27
+75,Cuba,,4,0,0,287,4,Joe Lamas\LamaJo20,1,Luis Sharpe\SharLu00,189
+76,Cyprus,,1,0,0,177,0,,,Garo Yepremian\yepregar01,177
+77,Czech Republic,,5,0,0,128,1,Bullets Walson\WalsBu20,1,Will Svitek\SvitWi20,79
+78,Denmark,,4,0,1,424,0,,,Morten Andersen\andermor01,382
+79,El Salvador,,1,0,0,55,0,,,Jose Cortez\cortejos01,55
+80,England,,29,4,0,1637,75,Sammy Morris\MorrSa00,27,Osi Umenyiora\UmenOs99,161
+81,Estonia,,2,1,0,208,0,,,Michael Roos\RoosMi20,148
+82,Fiji,,1,0,0,55,0,,,Freddy Keiaho\KeiaFr20,55
+83,France,,4,0,0,201,2,Charles Romes\RomeCh20,2,Charles Romes\RomeCh20,156
+84,Germany,,80,4,1,4706,135,Tony Richardson\RichTo00,24,Nick Lowery\lowernic01,260
+85,Ghana,,3,1,0,197,0,,,Ebenezer Ekuban\EkubEb20,122
+86,Greece,,5,0,0,129,1,Chris Farasopoulos\FaraCh20,1,Chris Farasopoulos\FaraCh20,42
+87,Guam,,1,0,0,8,0,,,Troy Andrew\AndrTr20,8
+88,Guatemala,,2,0,1,231,5,Ted Hendricks\HendTe00,4,Ted Hendricks\HendTe00,215
+89,Guyana,,1,0,0,121,1,Lance Schulters\SchuLa00,1,Lance Schulters\SchuLa00,121
+90,Haiti,,6,4,0,362,0,,,Gosder Cherilus\CherGo20,132
+91,Honduras,,2,0,1,119,78,Steve Van Buren\VanBSt00,77,Steve Van Buren\VanBSt00,83
+92,Hungary,,4,0,0,285,0,,,Pete Gogolak\GogoPe20,149
+93,Iran,,1,0,0,57,0,,,Shar Pourdanesh\PourSh20,57
+94,Ireland,,10,0,0,225,1,Bob Nash\NashBo20,1,Neil O'Donoghue\odononei02,110
+95,Italy,,1,1,0,16,0,David Knight\KnigDa00,7,Leo Nomellini\NomeLe00,174
+96,Italy,,22,2,1,676,9,David Knight\KnigDa00,7,Leo Nomellini\NomeLe00,174
+97,Ivory Coast,,1,0,0,84,11,Amos Zereoue\ZereAm00,11,Amos Zereoue\ZereAm00,84
+98,Jamaica,,40,5,0,1833,9,Kevin McLeod\McLeKe00,1,Sean Jones\JoneSe00,201
+99,Japan,,11,1,0,755,11,Robert Griffin\GrifRo01,10,John Jackson\JackJo22,203
+100,Kenya,,2,1,0,20,0,,,Rees Odhiambo\OdhiRe00,15
+101,Latvia,,1,0,0,14,0,,,Vilnis Ezerins\EzerVi00,14
+102,Lebanon,,2,0,0,4,0,,,Hicham El-Mashtoub\El-MHi20,3
+103,Liberia,,8,2,0,461,4,Tamba Hali\HaliTa20,2,Tamba Hali\HaliTa20,177
+104,Libya,,1,0,0,6,1,Tony Cherry\CherTo20,1,Tony Cherry\CherTo20,6
+105,Lithuania,,2,0,0,33,0,,,Arunas Vasys\VasyAr20,22
+106,Marshall Islands,,1,0,0,175,6,Todd Lyght\LyghTo00,6,Todd Lyght\LyghTo00,175
+107,Mexico,,14,0,1,755,39,Tom Fears\FearTo00,39,Rafael Septien\septiraf01,151
+108,Netherlands,,4,0,0,130,0,,,Harald Hasselbach\HassHa20,112
+109,New Zealand,,4,1,0,361,0,,,David Dixon\DixoDa20,152
+110,Nigeria,,24,6,0,997,69,Christian Okoye\OkoyCh00,40,Israel Idonije\IdonIs20,149
+111,Norway,,5,0,1,375,0,,,Jan Stenerud\stenejan01,263
+112,Okinawa,,1,0,0,50,0,,,Rick Berns\BernRi00,50
+113,Panama,,2,0,0,34,0,,,Alvin Powell\PoweAl20,20
+114,Panama Canal Zone,,2,0,0,123,1,Leo Barker\BarkLe20,1,Leo Barker\BarkLe20,122
+115,Paraguay,,1,0,0,90,0,,,Benny Ricardo\ricarben01,90
+116,Philippines,,3,0,0,198,0,,,Eugene Amano\AmanEu20,124
+117,Phillipines,,4,0,0,95,14,Tim Tebow\TeboTi00,12,Sanjay Beach\BeacSa00,42
+118,Poland,,6,1,0,442,1,Chester Marcol\marcoche01,1,Sebastian Janikowski\janikseb01,268
+119,Puerto Rico,,2,0,0,126,0,,,Ken Amato\AmatKe20,125
+120,Romania,,4,0,0,146,0,,,George Gross\GrosGe20,70
+121,Russia,,6,0,0,112,20,Ace Gutowsky\GutoAc20,20,Ace Gutowsky\GutoAc20,86
+122,Saudi Arabia,,1,0,0,14,0,,,Jordan Kent\KentJo20,14
+123,Scotland,,9,1,0,311,2,James Robertson\RobeJa22,2,Lawrence Tynes\tyneslaw01,129
+124,Sierra Leone,,1,0,0,100,0,,,Gibril Wilson\WilsGi20,100
+125,South Africa,,2,0,0,453,15,Jerome Pathon\PathJe00,15,Gary Anderson\andergar02,353
+126,South Korea,,2,1,0,95,0,,,Kyle Love\LoveKy00,84
+127,Spain,,3,0,0,24,1,Kelly Rodriguez\RodrKe20,1,Kelly Rodriguez\RodrKe20,15
+128,St. Kitts & Nevis,,1,0,0,28,0,,,Erasmus James\JameEr20,28
+129,Sweden,,9,0,0,105,17,Curly Oden\OdenCu20,17,Curly Oden\OdenCu20,67
+130,Syria,,1,0,0,9,0,,,Heinie Jawish\JawiHe20,9
+131,Taiwan,,2,0,0,100,0,,,Tony Daykin\DaykTo20,73
+132,Thailand,,1,0,0,57,0,,,Tony Brown\BrowTo24,57
+133,Tonga,,14,1,0,808,17,Tim Manoa\ManoTi00,8,Ma'ake Kemoeatu\KemoMa20,136
+134,Trinidad,,4,0,0,127,1,Curvin Richards\RichCu00,1,Anthony Herrera\HerrAn20,80
+135,Trinidad & Tobago,,1,0,0,2,0,,,Yannick Cudjoe-Virgil\CudjYa00,2
+136,Turkey,,1,0,0,177,0,,,Tunch Ilkin\IlkiTu00,177
+137,U.S. Virgin Islands,,1,1,0,113,0,,,Linval Joseph\JoseLi99,113
+138,Uganda,,3,0,0,201,0,,,Mathias Kiwanuka\KiwaMa20,120
+139,Ukraine,,3,0,0,244,10,Buckets Goldenberg\GoldBu20,10,Buckets Goldenberg\GoldBu20,120
+140,Venezuela,,2,0,0,4,0,,,Pat Ragusa\raguspat01,3
+141,Virgin Islands,,9,0,0,427,3,Quentin Coryatt\CoryQu20,1,Renaldo Turnbull\TurnRe00,120
+142,Wales,,2,0,0,7,0,,,Allan Watson\WatsAl20,4
+143,West Africa,,2,0,0,129,2,Madieu Williams\WillMa20,2,Madieu Williams\WillMa20,119
+144,West Germany,,3,0,0,246,2,Mike Jenkins\JenkMi99,1,Jerome Felton\FeltJe00,132
+145,Western Samoa,,6,0,0,356,0,,,Jesse Sapolu\SapoJe00,182
+146,Yugoslavia,,6,0,0,186,8,Frankie Sinkwich\SinkFr21,8,Visco Grgich\GrgiVi00,78
+147,Zaire,,2,0,0,62,17,Tim Biakabutuka\BiakTi00,17,Tim Biakabutuka\BiakTi00,50
+148,Zimbabwe,,1,1,0,26,0,,,Stansly Maponga\MapoSt00,26
+149,Unknown,,529,351,0,3286,131,Alvin Kamara\KamaAl00,14,Andrew Adams\AdamAn01,30
+
+
+Provided by <a href="https://www.sports-reference.com/sharing.html?utm_source=direct&utm_medium=Share&utm_campaign=ShareTool">Pro-Football-Reference.com</a>: <a href="https://www.pro-football-reference.com/friv/birthplaces.htm?sr&utm_source=direct&utm_medium=Share&utm_campaign=ShareTool#birthplaces">View Original Table</a><br>Generated 1/13/2018.

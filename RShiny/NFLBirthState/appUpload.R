@@ -19,8 +19,6 @@ library(stringr)
 
 
 
-#rm(list=ls())
-#setwd("C:/Users/kevin/Desktop/Career Prep/Kevin work Portfolio/Personal Project/NFL Careers/NFLBirthState/")
 pl1 <- read.csv("playersLonLat.csv", header=T, sep=",", na.strings = "")
 pl2<- read.csv("playersLonLat2.csv", header=T, sep=",", na.strings = "")
 pl3<- read.csv("playersLonLat3.csv", header=T, sep=",", na.strings = "")

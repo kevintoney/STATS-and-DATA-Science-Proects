@@ -20,7 +20,6 @@ library(stringr)
 
 
 #rm(list=ls())
-setwd("C:/Users/kevin/Desktop/Career Prep/Kevin work Portfolio/Personal Project/NFL Careers/")
 pl1 <- read.csv("NFLBirthState/playersLonLat.csv", header=T, sep=",", na.strings = "")
 pl2<- read.csv("NFLBirthState/playersLonLat2.csv", header=T, sep=",", na.strings = "")
 pl3<- read.csv("NFLBirthState/playersLonLat3.csv", header=T, sep=",", na.strings = "")
